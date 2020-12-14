@@ -3,7 +3,7 @@ const http = require('http')
 const express = require('express')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
-const { generateMessage, generateLocationMessage } = require('./utils/messages')
+const { generateMessage } = require('./utils/messages')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/users')
 
 
@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
         
         socket.join(user.room)
 
-        socket.emit('message', generateMessage('Admin', 'Welcome!')) // socket.emit emitter kun til den pågældende socket
+        socket.emit('message', generateMessage('Admin', `Ohøj ${user.username} og velkommen til Coding Pirates chatrum!`)) // socket.emit emitter kun til den pågældende socket
         socket.broadcast.to(user.room).emit('message', generateMessage('Admin', `${user.username} has joined the chat!`)) // broadcast emitter til alle undtagen den pågældende socket
         io.to(user.room).emit('roomData', {
             room: user.room,
