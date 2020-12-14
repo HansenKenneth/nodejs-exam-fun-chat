@@ -24,8 +24,8 @@ app.use(express.static(publicDirectoryPath))
 io.on('connection', (socket) => {
     console.log('New websockert connection')
 
-    socket.on('join', ({ username, room }, callbackAckLocation) => {
-        const { error, user } = addUser({ id: socket.id, username, room })
+    socket.on('join', ({ username }, callbackAckLocation) => {
+        const { error, user } = addUser({ id: socket.id, username})
         
         if (error) {
             return callbackAckLocation(error)
